@@ -2,85 +2,52 @@ const Employee = require('./lib/Employee');
 const Manager = require('./lib/Manager');
 const Engineer = require('./lib/Engineer');
 const Intern = require('./lib/Intern');
+const questions = require('./src/questions');
+const generateHTML = require('./src/generateHTML');
 const inquirer = require('inquirer');
 
 const team = [];
 
-const managerQuestions = [
-    {
-        type: "input",
-        message: "Who is the manager of your team?",
-        name: "manager-name"
-    },
-    {
-        type: "input",
-        message: "What is the manager's employee ID?",
-        name: "manager-id"
-    },
-    {
-        type: "input",
-        message: "What is the manager's email address?",
-        name: "manager-email"
-    },
-    {
-        type: "input",
-        message: "What is the manager's office number?",
-        name: "manager-office"
-    }
+inquireUserManager();
 
-];
+function inquireUserManager() {
+    inquirer
+        .prompt(questions.managerQuestions)
+        .then((response) => {
+            team[0] = new Manager(response.managerName, response.managerId, response.managerEmail, response.managerOffice);
+            inquireUserMenu();
+        });
+};
 
-const menuQuestions = [
-    {
-        type: "list",
-        message: "Would you like to add another team member?",
-        options: ["Add Engineer", new inquirer.Separator(), "Add Intern", new inquirer.Separator(), "Finish team builder"],
-        name: "menu-choice"
-    }
-];
+function inquireUserMenu() {
+    inquirer
+        .prompt(questions.menuQuestions)
+        .then((response) => {
+            if (response.menuChoice === "Add Engineer") {
+                inquireUserEngineer();
+            } else if (response.menuChoice === "Add Intern") {
+                inquireUserIntern();
+            } else {
+                console.log("Building team. . .");
+                console.log(team);
+            }
+        });
+};
 
-const engineerQuestions = [
-    {
-        type: "input",
-        message: "What is the name of this engineer?",
-        name: "engineer-name"
-    },
-    {
-        type: "input",
-        message: "What is this engineer's employee ID?",
-        name: "engineer-id"
-    },
-    {
-        type: "input",
-        message: "What is this engineer's email address?",
-        name: "engineer-email"
-    },
-    {
-        type: "input",
-        message: "What is this engineer's github username?",
-        name: "engineer-github"
-    }
-];
+function inquireUserEngineer() {
+    inquirer
+        .prompt(questions.engineerQuestions)
+        .then((response) => {
+            team.push(new Engineer(response.engineerName, response.engineerId, response.engineerEmail, response.engineerGithub));
+            inquireUserMenu();
+        });
+};
 
-const internQuestions = [
-    {
-        type: "input",
-        message: "What is the name of this intern?",
-        name: "intern-name"
-    },
-    {
-        type: "input",
-        message: "What is this intern's employee ID?",
-        name: "intern-id"
-    },
-    {
-        type: "input",
-        message: "What is this intern's email address?",
-        name: "intern-email"
-    },
-    {
-        type: "input",
-        message: "What school does this intern go to?",
-        name: "intern-school"
-    }
-];
+function inquireUserIntern() {
+    inquirer
+        .prompt(questions.internQuestions)
+        .then((response) => {
+            team.push(new Intern(response.internName, response.internId, response.internEmail, response.internSchool));
+            inquireUserMenu();
+        });
+}
