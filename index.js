@@ -5,6 +5,7 @@ const Intern = require('./lib/Intern');
 const questions = require('./src/questions');
 const generateHTML = require('./src/generateHTML');
 const inquirer = require('inquirer');
+const fs = require('fs');
 
 const team = [];
 
@@ -30,6 +31,8 @@ function inquireUserMenu() {
             } else {
                 console.log("Building team. . .");
                 console.log(team);
+                fs.writeFile('index.html', new generateHTML(team).generateContent(), (err) => {
+                });
             }
         });
 };
