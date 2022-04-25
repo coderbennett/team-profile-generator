@@ -8,6 +8,13 @@ describe("Manager class", () => {
         });
     });
 
+    describe("getName method", () => {
+        it("should return employee id", () => {
+            const manager = new Manager("Claire", 1013314, "claire@greenleaf.com", "1031");
+            expect(manager.getName()).toBe("Claire");
+        })
+    });
+
     describe("getId method", () => {
         it("should return employee id", () => {
             const manager = new Manager("Theodosia", 1002402, "theodosia@greenleaf.com", "1231");
