@@ -14,13 +14,14 @@ class generateHTML {
             <title>Team Profile</title>
         </head>
         <body>
-            <div class="navbar bg-base-100">
-                <a class="btn btn-ghost normal-case text-xl">Our Team</a>
+            <div class="navbar bg-primary">
+                <a class="btn btn-ghost normal-case text-xl text-base-100">Our Team</a>
             </div>
             <div id="cards" class="flex flex-wrap justify-evenly">
                 ${this.iterateTeam(this.teamArray)}
             </div>
             <script src="https://cdn.tailwindcss.com"></script>
+            <script src="https://kit.fontawesome.com/afdfd2c8fa.js" crossorigin="anonymous"></script>
         </body>
         </html>`
     }
@@ -38,10 +39,13 @@ class generateHTML {
         let property;
         if (type === 'Manager') {
             property = "Office number: " + employee.officeNo;
+            type = '<i class="fa-solid fa-glasses"></i>' + type;
         } else if (type === 'Engineer') {
             property = `GitHub: <a href='https://github.com/${employee.github}' target='_blank'>${employee.github}</a>`;
+            type = '<i class="fa-solid fa-code"></i>' + type;
         } else {
             property = "School: " + employee.school;
+            type = '<i class="fa-solid fa-graduation-cap"></i>' + type;
         }
     
         return `
