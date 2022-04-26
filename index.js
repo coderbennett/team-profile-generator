@@ -20,8 +20,22 @@ function inquireUserManager() {
     inquirer
         .prompt(questions.managerQuestions)
         .then((response) => {
-            team[0] = new Manager(response.managerName, response.managerId, response.managerEmail, response.managerOffice);
-            inquireUserMenu();
+            if(response.managerName === null || response.managerName === "") {
+                console.log("Incorrect response format, please try again.");
+                inquireUserManager();
+            } else if (response.managerId === null || response.managerId === "") {
+                console.log("Incorrect response format, please try again.")
+                inquireUserManager();
+            } else if (response.managerEmail === null || !response.managerEmail.includes("@") || !response.managerEmail.includes(".")) {
+                console.log("Incorrect response format, please try again.")
+                inquireUserManager();
+            } else if (response.managerOffice === null || !response.managerOffice === "") {
+                console.log("Incorrect response format, please try again.")
+                inquireUserManager();
+            } else {
+                team[0] = new Manager(response.managerName, response.managerId, response.managerEmail, response.managerOffice);
+                inquireUserMenu();
+            }
         });
 };
 
@@ -36,11 +50,14 @@ function inquireUserMenu() {
                 inquireUserEngineer();
             } else if (response.menuChoice === "Add Intern") {
                 inquireUserIntern();
-            } else {
+            } else if (response.menuChoice === "Finish team builder"){
                 console.log("Building team. . .");
                 console.log(team);
                 fs.writeFile('index.html', new generateHTML(team).generateContent(), (err) => {
                 });
+            } else {
+                console.log("Incorrect response! Try again.")
+                inquireUserMenu();
             }
         });
 };
@@ -49,8 +66,22 @@ function inquireUserEngineer() {
     inquirer
         .prompt(questions.engineerQuestions)
         .then((response) => {
-            team.push(new Engineer(response.engineerName, response.engineerId, response.engineerEmail, response.engineerGithub));
-            inquireUserMenu();
+            if(response.engineerName === null || response.engineerName === "") {
+                console.log("Incorrect response format, please try again.");
+                inquireUserEngineer();
+            } else if (response.engineerId === null || response.engineerId === "") {
+                console.log("Incorrect response format, please try again.")
+                inquireUserEngineer();
+            } else if (response.engineerEmail === null || !response.engineerEmail.includes("@") || !response.engineerEmail.includes(".")) {
+                console.log("Incorrect response format, please try again.")
+                inquireUserEngineer();
+            } else if (response.engineerGithub === null || !response.engineerGithub === "") {
+                console.log("Incorrect response format, please try again.")
+                inquireUserEngineer();
+            } else {
+                team.push(new Engineer(response.engineerName, response.engineerId, response.engineerEmail, response.engineerGithub));
+                inquireUserMenu();
+            }
         });
 };
 
@@ -58,7 +89,21 @@ function inquireUserIntern() {
     inquirer
         .prompt(questions.internQuestions)
         .then((response) => {
-            team.push(new Intern(response.internName, response.internId, response.internEmail, response.internSchool));
-            inquireUserMenu();
+            if(response.internName === null || response.internName === "") {
+                console.log("Incorrect response format, please try again.");
+                inquireUserIntern();
+            } else if (response.internId === null || response.internId === "") {
+                console.log("Incorrect response format, please try again.")
+                inquireUserIntern();
+            } else if (response.internEmail === null || !response.internEmail.includes("@") || !response.internEmail.includes(".")) {
+                console.log("Incorrect response format, please try again.")
+                inquireUserIntern();
+            } else if (response.internSchool === null || !response.internSchool === "") {
+                console.log("Incorrect response format, please try again.")
+                inquireUserIntern();
+            } else {
+                team.push(new Intern(response.internName, response.internId, response.internEmail, response.internSchool));
+                inquireUserMenu();
+            }
         });
 }
