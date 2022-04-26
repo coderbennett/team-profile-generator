@@ -7,10 +7,15 @@ const generateHTML = require('./src/generateHTML');
 const inquirer = require('inquirer');
 const fs = require('fs');
 
+//initialize team array, to hold each team member object inside
 const team = [];
 
+//call the inquire user manager function to start asking the user questions about the team
 inquireUserManager();
 
+//this function pulls from the questions.js file, the managerQuestions array specifically
+//to inquire the user about the manager on the team
+//once the questions have been answered we call the menu questions
 function inquireUserManager() {
     inquirer
         .prompt(questions.managerQuestions)
@@ -20,6 +25,9 @@ function inquireUserManager() {
         });
 };
 
+
+//the inquire user menu method pulls the menu questions to let the user
+//choose what to do next, then it calls the corresponding function
 function inquireUserMenu() {
     inquirer
         .prompt(questions.menuQuestions)

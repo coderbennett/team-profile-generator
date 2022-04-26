@@ -1,3 +1,4 @@
+//the generateHTML class is used to generate the HTML content
 class generateHTML {
     constructor(teamArray) {
         this.teamArray = teamArray;
