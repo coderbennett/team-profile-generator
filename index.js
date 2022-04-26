@@ -52,9 +52,9 @@ function inquireUserMenu() {
                 inquireUserIntern();
             } else if (response.menuChoice === "Finish team builder"){
                 console.log("Building team. . .");
-                console.log(team);
                 fs.writeFile('index.html', new generateHTML(team).generateContent(), (err) => {
                 });
+                console.log("Success! Team has been built- view your team on the index.html file generated.")
             } else {
                 console.log("Incorrect response! Try again.")
                 inquireUserMenu();
